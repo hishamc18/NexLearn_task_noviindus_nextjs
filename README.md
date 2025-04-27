@@ -65,6 +65,9 @@ It leverages best practices like modular code organization, robust session manag
 ## 📂 Project Structure
 
 ```bash
+/app           # pages
+   /(auth)
+   /(exam)
 /components    # Reusable UI components
 /redux         # Redux slices, hooks, and store setup
 /app           # Pages and layout using App Router
@@ -72,6 +75,8 @@ It leverages best practices like modular code organization, robust session manag
 /middleware.ts # Route protection via token validation
 /utils         # Axios instance with interceptor
 /public        # Static assets (images, icons)
+/lib           # utils, helpers
+/services      # api services
 ```
 
 ---
