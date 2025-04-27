@@ -24,7 +24,7 @@ export default function Page() {
             {/* Top Card */}
             <div className="bg-gradient-to-b from-[#32748F] to-[#20445A] rounded-2xl max-w-md w-full text-white text-center px-8 py-10 shadow-lg">
                 <p className="text-base font-medium mb-3">Marks Obtained:</p>
-                <h1 className="text-6xl font-bold">{exam.score} / 100</h1>
+                <h1 className="text-6xl font-bold">{exam.score} / {exam.questions.length}</h1>
             </div>
 
             {/* Details */}

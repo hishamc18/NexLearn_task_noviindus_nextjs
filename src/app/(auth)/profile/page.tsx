@@ -64,7 +64,7 @@ export default function Page() {
 
         if (result.success) {
             toast.success(result.message || "Profile created successfully!");
-            router.push("/");
+            router.push("/instruction");
         } else {
             toast.error(result.message || "Failed to create profile.");
         }
