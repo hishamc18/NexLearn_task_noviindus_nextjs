@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import ResultStats from "@/components/Exam/Result/ResultStats";
 import { useSelector } from "react-redux";
 import { selectExam } from "@/redux/slices/examSlice";
 import { useRouter } from "next/navigation";
@@ -29,20 +29,20 @@ export default function Page() {
 
             {/* Details */}
             <div className="rounded-2xl w-full max-w-md px-1 py-6 flex flex-col gap-4">
-                <ResultRow icon="/exam/question.svg" bg="bg-[#F6C041]" label="Total Questions:" value={totalQuestions} />
-                <ResultRow
+                <ResultStats icon="/exam/question.svg" bg="bg-[#F6C041]" label="Total Questions:" value={totalQuestions} />
+                <ResultStats
                     icon="/exam/question.svg"
                     bg="bg-[#4CAF50]"
                     label="Correct Answers:"
                     value={String(exam.correct ?? 0).padStart(3, "0")}
                 />
-                <ResultRow
+                <ResultStats
                     icon="/exam/question.svg"
                     bg="bg-[#FF4C4C]"
                     label="Incorrect Answers:"
                     value={String(exam.wrong ?? 0).padStart(3, "0")}
                 />
-                <ResultRow
+                <ResultStats
                     icon="/exam/question.svg"
                     bg="bg-[#757575]"
                     label="Not Attended Questions:"
@@ -58,14 +58,4 @@ export default function Page() {
     );
 }
 
-function ResultRow({ icon, bg, label, value }: { icon: string; bg: string; label: string; value: string | number }) {
-    return (
-        <div className="flex items-center">
-            <div className={`${bg} p-2 rounded-md flex items-center justify-center`}>
-                <Image src={icon} width={20} height={20} alt={label} />
-            </div>
-            <span className="flex-1 ml-4 text-[#1C3141] text-sm font-medium">{label}</span>
-            <span className="font-bold text-[#1C3141]">{value}</span>
-        </div>
-    );
-}
+
