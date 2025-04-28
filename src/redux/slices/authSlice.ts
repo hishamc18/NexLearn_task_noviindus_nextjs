@@ -36,10 +36,9 @@ export const verifyOtpThunk = createAsyncThunk("auth/verifyOtp", async (data: Ve
   return response;
 });
 
-export const createProfileThunk = createAsyncThunk("auth/create-Profile", async (data: CreateProfileRequest) => {
+export const createProfileThunk = createAsyncThunk("auth/create-Profile", async (data: CreateProfileRequest) => {  
   const response: AuthResponse = await createProfile(data);
   console.log(response);
-  
   return response;
 });
 
@@ -55,6 +54,7 @@ const authSlice = createSlice({
       state.mobile = "";
       Cookies.remove("access_token");
       Cookies.remove("refresh_token");
+      localStorage.removeItem("mobile")
     },
     
     setMobile: (state, action) => {

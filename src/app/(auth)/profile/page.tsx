@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { createProfileThunk } from "@/redux/slices/authSlice";
@@ -20,7 +20,13 @@ export default function Page() {
 
     const dispatch = useAppDispatch();
     const router = useRouter();
-    const { loading, mobile } = useAppSelector((state) => state.auth);
+    const { loading, mobile, success } = useAppSelector((state) => state.auth);
+
+    useEffect(() => {
+        if (!success) {
+            router.push("/login");
+        }
+    }, [router, success]);
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
@@ -49,8 +55,8 @@ export default function Page() {
         }
 
         if (!profileImage) {
-          toast.error("Please upload your profile image.");
-          return;
+            toast.error("Please upload your profile image.");
+            return;
         }
 
         const payload = {
@@ -60,18 +66,25 @@ export default function Page() {
             mobile: mobile,
             profile_image: profileImage,
         };
-        const result = await dispatch(createProfileThunk(payload)).unwrap();
 
-        if (result.success) {
-            toast.success(result.message || "Profile created successfully!");
-            router.push("/instruction");
-        } else {
-            toast.error(result.message || "Failed to create profile.");
+        try {
+            const result = await dispatch(createProfileThunk(payload)).unwrap();
+
+            if (result.success) {
+                toast.success(result.message || "Profile created successfully!");
+                router.push("/instruction");
+            }
+        } catch (error) {
+            const errorMessage = (error as { message?: string })?.message || "Something went wrong. Please try again.";
+            toast.error(errorMessage);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col h-full w-full px-6 py-6 font-poppins text-PrimaryBg">
+        <form
+            onSubmit={handleSubmit}
+            className="flex flex-col h-full w-full px-6 py-6 overflow-scroll md:overflow-hidden font-poppins text-PrimaryBg"
+        >
             {/* Header */}
             <h2 className="text-[24px] font-semibold mb-4">Add Your Details</h2>
 
