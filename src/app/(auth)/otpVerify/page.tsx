@@ -66,9 +66,8 @@ export default function Page() {
     };
 
     if (loading) {
-        return ( <Loader />
-        );
-      }
+        return <Loader />;
+    }
 
     return (
         <div className="w-full h-full flex flex-col justify-between px-6 py-6 text-PrimaryBg font-poppins">
@@ -89,7 +88,9 @@ export default function Page() {
                     Your 6-digit code is on its way. This can sometimes take a few moments to arrive.
                 </p>
 
-                <p onClick={handleResend} className="font-semibold text-[14px] underline cursor-pointer">Resend Code</p>
+                <p onClick={handleResend} className="font-semibold text-[14px] underline cursor-pointer">
+                    Resend Code
+                </p>
             </div>
 
             <form onSubmit={handleSubmit} className="mt-8">
